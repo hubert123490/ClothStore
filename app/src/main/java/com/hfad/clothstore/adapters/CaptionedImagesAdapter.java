@@ -16,6 +16,7 @@ import com.hfad.clothstore.R;
 public class CaptionedImagesAdapter extends RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder> {
     private String[] captions;
     private int[] imageIds;
+    private double[] prices;
     private Listener listener;
 
     public interface Listener{
@@ -31,9 +32,10 @@ public class CaptionedImagesAdapter extends RecyclerView.Adapter<CaptionedImages
         }
     }
 
-    public CaptionedImagesAdapter(String[] captions, int[] imageIds){
+    public CaptionedImagesAdapter(String[] captions, int[] imageIds, double[] prices){
         this.captions = captions;
         this.imageIds = imageIds;
+        this.prices = prices;
     }
 
     @Override
@@ -51,6 +53,9 @@ public class CaptionedImagesAdapter extends RecyclerView.Adapter<CaptionedImages
         imageView.setContentDescription(captions[position]);
         TextView textView = cardView.findViewById(R.id.info_text);
         textView.setText(captions[position]);
+        TextView priceView = cardView.findViewById(R.id.price_amount);
+        String price = Double.toString(prices[position]) + " $";
+        priceView.setText(price);
         cardView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

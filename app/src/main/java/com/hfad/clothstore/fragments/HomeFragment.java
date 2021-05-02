@@ -34,7 +34,12 @@ public class HomeFragment extends Fragment {
             clothImages[i] = Cloth.clothes[i].getImageResourceId();
         }
 
-        CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(clothNames, clothImages);
+        double[] clothPrices = new double[Cloth.clothes.length];
+        for (int i = 0; i < clothImages.length; i++){
+            clothPrices[i] = Cloth.clothes[i].getPrice();
+        }
+
+        CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(clothNames, clothImages, clothPrices);
         clothRecycler.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         clothRecycler.setLayoutManager(layoutManager);

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.hfad.clothstore.ClothDetailActivity;
 import com.hfad.clothstore.R;
+import com.hfad.clothstore.SearchDetailActivity;
 import com.hfad.clothstore.SearchResult;
 import com.hfad.clothstore.adapters.CaptionedImagesAdapter;
 import com.hfad.clothstore.hardcoded.Cloth;
@@ -21,11 +22,12 @@ import java.util.ArrayList;
 
 
 public class SearchResultFragment extends Fragment {
+    private ArrayList<Cloth> clothes;
 
     @Override
     public View onCreateView( LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         RecyclerView clothRecycler = (RecyclerView)inflater.inflate(R.layout.fragment_search_result, container, false);
-        ArrayList<Cloth> clothes = new ArrayList<Cloth>();
+        clothes = new ArrayList<Cloth>();
 
         SearchResult activity = (SearchResult) getActivity();
         String type = activity.getType();
@@ -49,15 +51,21 @@ public class SearchResultFragment extends Fragment {
             clothImages[i] = clothes.get(i).getImageResourceId();
         }
 
-        CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(clothNames, clothImages);
+        double[] clothPrices = new double[Cloth.cartItems.size()];
+        for (int i = 0; i < clothImages.length; i++){
+            clothPrices[i] = Cloth.cartItems.get(i).getPrice();
+        }
+
+        CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(clothNames, clothImages, clothPrices);
         clothRecycler.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         clothRecycler.setLayoutManager(layoutManager);
         adapter.setListener(new CaptionedImagesAdapter.Listener() {
             @Override
             public void onClick(int position) {
-                Intent intent = new Intent(getActivity(), ClothDetailActivity.class);
-                intent.putExtra(ClothDetailActivity.EXTRA_CLOTH_ID, position);
+                Intent intent = new Intent(getActivity(), SearchDetailActivity.class);
+                intent.putExtra(SearchDetailActivity.EXTRA_CLOTH_ID, position);
+                intent.putExtra(SearchDetailActivity.EXTRA_CLOTH, clothes.get(position));
                 getActivity().startActivity(intent);
             }
         });

@@ -11,29 +11,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hfad.clothstore.FavoritesDetailActivity;
+import com.hfad.clothstore.CartDetailActivity;
 import com.hfad.clothstore.R;
 import com.hfad.clothstore.adapters.CaptionedImagesAdapter;
 import com.hfad.clothstore.hardcoded.Cloth;
 
 
-public class FavoritesFragment extends Fragment {
+public class CartNestedFragment extends Fragment {
+
     CaptionedImagesAdapter adapter;
     RecyclerView clothRecycler;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        clothRecycler = (RecyclerView) inflater.inflate(R.layout.fragment_home, container, false);
+    public View onCreateView( LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
+        clothRecycler = (RecyclerView)inflater.inflate(R.layout.fragment_home, container, false);
 
-        String[] clothNames = new String[Cloth.favoritesItems.size()];
-        for (int i = 0; i < clothNames.length; i++) {
-            clothNames[i] = Cloth.favoritesItems.get(i).getName();
+        String[] clothNames = new String[Cloth.cartItems.size()];
+        for (int i = 0; i < clothNames.length; i++){
+            clothNames[i] = Cloth.cartItems.get(i).getName();
         }
 
-        int[] clothImages = new int[Cloth.favoritesItems.size()];
-        for (int i = 0; i < clothImages.length; i++) {
-            clothImages[i] = Cloth.favoritesItems.get(i).getImageResourceId();
+        int[] clothImages = new int[Cloth.cartItems.size()];
+        for (int i = 0; i < clothImages.length; i++){
+            clothImages[i] = Cloth.cartItems.get(i).getImageResourceId();
         }
 
         double[] clothPrices = new double[Cloth.cartItems.size()];
@@ -49,25 +49,26 @@ public class FavoritesFragment extends Fragment {
         adapter.setListener(new CaptionedImagesAdapter.Listener() {
             @Override
             public void onClick(int position) {
-                Intent intent = new Intent(getActivity(), FavoritesDetailActivity.class);
-                intent.putExtra(FavoritesDetailActivity.EXTRA_CLOTH_ID, position);
+                Intent intent = new Intent(getActivity(), CartDetailActivity.class);
+                System.out.println(position);
+                intent.putExtra(CartDetailActivity.EXTRA_CLOTH_ID, position);
                 getActivity().startActivity(intent);
             }
         });
-        return clothRecycler;
+         return clothRecycler;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        String[] clothNames = new String[Cloth.favoritesItems.size()];
-        for (int i = 0; i < clothNames.length; i++) {
-            clothNames[i] = Cloth.favoritesItems.get(i).getName();
+        String[] clothNames = new String[Cloth.cartItems.size()];
+        for (int i = 0; i < clothNames.length; i++){
+            clothNames[i] = Cloth.cartItems.get(i).getName();
         }
 
-        int[] clothImages = new int[Cloth.favoritesItems.size()];
-        for (int i = 0; i < clothImages.length; i++) {
-            clothImages[i] = Cloth.favoritesItems.get(i).getImageResourceId();
+        int[] clothImages = new int[Cloth.cartItems.size()];
+        for (int i = 0; i < clothImages.length; i++){
+            clothImages[i] = Cloth.cartItems.get(i).getImageResourceId();
         }
 
         double[] clothPrices = new double[Cloth.cartItems.size()];
@@ -83,8 +84,9 @@ public class FavoritesFragment extends Fragment {
         adapter.setListener(new CaptionedImagesAdapter.Listener() {
             @Override
             public void onClick(int position) {
-                Intent intent = new Intent(getActivity(), FavoritesDetailActivity.class);
-                intent.putExtra(FavoritesDetailActivity.EXTRA_CLOTH_ID, position);
+                Intent intent = new Intent(getActivity(), CartDetailActivity.class);
+                System.out.println(position);
+                intent.putExtra(CartDetailActivity.EXTRA_CLOTH_ID, position);
                 getActivity().startActivity(intent);
             }
         });

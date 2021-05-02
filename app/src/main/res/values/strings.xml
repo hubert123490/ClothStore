@@ -29,5 +29,6 @@
     <string name="favorites_delete_button">Delete from favorites</string>
     <string name="alert_dialog_confirm">yes</string>
     <string name="alert_dialog_decline">no</string>
+    <string name="cart_buy_button">Buy</string>
 
 </resources>
